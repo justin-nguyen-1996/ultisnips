@@ -38,12 +38,15 @@ def find_all_snippet_directories():
     else:
         snippet_dirs = vim_helper.eval("g:UltiSnipsSnippetDirectories")
 
-    if len(snippet_dirs) == 1:
-        # To reduce confusion and increase consistency with
-        # `UltiSnipsSnippetsDir`, we expand ~ here too.
-        full_path = os.path.expanduser(snippet_dirs[0])
-        if os.path.isabs(full_path):
-            return [full_path]
+#    if len(snippet_dirs) == 1:
+#        # To reduce confusion and increase consistency with
+#        # `UltiSnipsSnippetsDir`, we expand ~ here too.
+#        full_path = os.path.expanduser(snippet_dirs[0])
+#        if os.path.isabs(full_path):
+#            return [full_path]
+
+    if len(snippet_dirs) == 1 and os.path.isabs(snippet_dirs[0]):
+        return snippet_dirs
 
     all_dirs = []
     check_dirs = vim_helper.eval("&runtimepath").split(",")
